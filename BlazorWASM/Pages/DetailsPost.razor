@@ -1,0 +1,73 @@
+﻿@page "/DetailsPost/{id:int}"
+@using Domain.DTOs
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using Microsoft.AspNetCore.Components
+@inject IPostService todoService
+@inject IUserService userService
+@inject NavigationManager navMgr
+
+<div class="card">
+    @if (users == null)
+    {
+        <label>Loading users...</label>
+    }
+    else if (!users.Any())
+    {
+        <label>No users, you cannot create a Todo</label>
+    }
+    else if (dto == null)
+    {
+        <label>Loading Todo data..</label>
+    }
+    else
+    {
+        <h3>Post Detail</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <p @bind="dto.Title"></p> 
+        </div>
+        
+        <div class="form-group field">
+            <label>Description:</label>
+            <p @bind="dto.description"></p> 
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PostDetailDTO dto = null!;
+    private string msg = "";
+    private IEnumerable<User>? users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            users = await userService.GetUsers();
+            TodoBasicDto todoData = await todoService.GetByIdAsync(Id);
+            User currentlyAssigned = users.First(user => user.UserName.Equals(todoData.OwnerName));
+
+            dto = new(Id)
+            {
+                Title = todoData.Title,
+                OwnerId = currentlyAssigned.Id,
+                description = dto.description
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}
