@@ -10,7 +10,7 @@ public class AuthService : IAuthService
     
     
     
-    public Task<User> GetUser(string username, string password)
+    public async Task<User> GetUser(string username, string password)
     {
         IEnumerable<User> users = await userLogic.GetAsync(null);
         User? existingUser = users.FirstOrDefault(u => 
@@ -26,7 +26,7 @@ public class AuthService : IAuthService
             throw new Exception("Password mismatch");
         }
 
-        return Task.FromResult(existingUser);
+        return existingUser;
     }
 
 }

@@ -10,8 +10,7 @@ public class AuthorizationPolicies
         services.AddAuthorizationCore(options =>
         {
             options.AddPolicy("MustBeLogged", a =>
-                a.RequireAuthenticatedUser().RequireClaim("Domain", "via"));
-    
+                a.RequireAuthenticatedUser());
         });
     }
 }

@@ -1,0 +1,28 @@
+﻿@using BlazorWASM.Services.Http
+@namespace Login
+@inject NavigationManager navMgr
+@inject IAuthService authService
+
+<AuthorizeView>
+    <Authorized>
+        <button @onclick="Logout" class="acceptbtn">Create</button>
+    </Authorized>
+    <NotAuthorized>
+        <button @onclick="Login" class="acceptbtn">Create</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    private void Login()
+    {
+        navMgr.NavigateTo("/Index");
+    }
+
+    private async Task Logout()
+    {
+        await authService.LogoutAsync();
+        navMgr.NavigateTo("/");
+    }
+
+}

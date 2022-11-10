@@ -2,10 +2,15 @@
 
 public class UserLoginDto
 {
-    public string UserName { get;}
+    public string UserName { get; set; }
     
-    public string Password { get; }
+    public string Password { get; set; }
 
+
+    public UserLoginDto()
+    {
+        
+    }
     public UserLoginDto(string userName, string password)
     {
         UserName = userName;
