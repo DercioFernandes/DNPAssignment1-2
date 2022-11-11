@@ -6,6 +6,7 @@ using Domain.Models;
 
 namespace BlazorWASM.Services.Http;
 
+
 public class JwtAuthService : IAuthService
 {
     private readonly HttpClient client = new ();
