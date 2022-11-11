@@ -5,10 +5,10 @@
 
 <AuthorizeView>
     <Authorized>
-        <button @onclick="Logout" class="acceptbtn">Create</button>
+        <button @onclick="Logout" class="acceptbtn">Logout</button>
     </Authorized>
     <NotAuthorized>
-        <button @onclick="Login" class="acceptbtn">Create</button>
+        <button @onclick="Login" class="acceptbtn">Login</button>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -16,7 +16,7 @@
 
     private void Login()
     {
-        navMgr.NavigateTo("/Index");
+        navMgr.NavigateTo("/");
     }
 
     private async Task Logout()
